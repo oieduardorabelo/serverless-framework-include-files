@@ -75,14 +75,12 @@ resources:
 
 Make sure the contents of your external file match the configuration of the AWS resource.
 
-````yml
-
 ```yml
 resources:
   Resources:
     MyBucket: ${file(resources/s3-bucket2.yml)}
     MyTable: ${file(resources/dynamodb-table2.yml)}
-````
+```
 
 The `resources/s3-bucket2.yml` file:
 
