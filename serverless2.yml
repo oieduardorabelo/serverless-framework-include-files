@@ -1,0 +1,13 @@
+service: serverless-framework-include-files
+frameworkVersion: "3"
+
+provider: ${file(config/provider2.yml)}
+
+functions:
+  function1:
+    handler: index.handler
+
+resources:
+  Resources:
+    MyBucket: ${file(resources/s3-bucket2.yml)}
+    MyTable: ${file(resources/dynamodb-table2.yml)}

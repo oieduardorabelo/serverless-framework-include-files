@@ -1,0 +1,7 @@
+Type: AWS::S3::Bucket
+Properties:
+  BucketName: my-bucket
+  AccessControl: PublicRead
+  WebsiteConfiguration:
+    IndexDocument: index.html
+    ErrorDocument: error.html
