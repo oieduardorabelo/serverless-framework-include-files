@@ -45,7 +45,7 @@ resources:
     # <--- Declare any AWS resources here
 ```
 
-You can declare [AWS resources inline](#1-aws-resources-inline), [include external files](#2-include-external-files-with-the-resources-configuration) with the resources configuration or use the [array syntax](#3-inline-and-external-files-with-aws-resources) to mix inline and external files.
+You can declare [AWS resources inline](#1-aws-resources-inline), include [external files](#2-aws-resources-configuration-in-external-files) with the resources configuration or use the [array syntax](#3-inline-and-external-files-with-aws-resources) to mix inline and external files.
 
 ### 1) AWS resources inline
 
@@ -71,16 +71,56 @@ resources:
           WriteCapacityUnits: 1
 ```
 
-### 2) Include external files with the resources configuration
+### 2) AWS resources configuration in external files
+
+Make sure the contents of your external file match the configuration of the AWS resource.
+
+````yml
 
 ```yml
 resources:
   Resources:
     MyBucket: ${file(resources/s3-bucket2.yml)}
     MyTable: ${file(resources/dynamodb-table2.yml)}
+````
+
+The `resources/s3-bucket2.yml` file:
+
+```yml
+Type: AWS::S3::Bucket
+Properties:
+  BucketName: my-bucket
+  AccessControl: PublicRead
+  WebsiteConfiguration:
+    IndexDocument: index.html
+    ErrorDocument: error.html
 ```
 
-### 3) Inline and external files with AWS resources
+### 3) Load AWS resources in external files
+
+Make sure your external files are declaring/start with the `Resources:` key.
+
+```yml
+resources:
+  - ${file(resources/s3-bucket.yml)}
+  - ${file(resources/dynamodb-table.yml)}
+```
+
+The `resources/s3-bucket2.yml` file:
+
+```yml
+Resources: # <--- required CloudFormation syntax
+  MyBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: my-bucket
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+```
+
+### 4) Inline and external files with AWS resources
 
 The secret sauce is the `Resources:` key. It allows you to mix inline and external files.
 
