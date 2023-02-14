@@ -1,6 +1,6 @@
 # Split Up / Include / Reference external configuration in Serverless Framework file
 
-Functional example of using Serverless Framework [`${file()}`](https://www.serverless.com/framework/docs/providers/aws/guide/variables) variable to load external files into `serverless.yml`.
+Using Serverless Framework [`${file()}`](https://www.serverless.com/framework/docs/providers/aws/guide/variables) variable to load external files into `serverless.yml`.
 
 ```yml
 service: serverless-framework-include-files
